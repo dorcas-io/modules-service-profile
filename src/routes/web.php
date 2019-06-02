@@ -1,7 +1,7 @@
 <?php
 
-Route::group(['namespace' => 'Dorcas\ModulesServiceProfile\Http\Controllers', 'middleware' => ['web']], function() {
-    Route::get('sales', 'ModulesServiceProfileController@index')->name('sales');
+Route::group(['namespace' => 'Dorcas\ModulesServiceProfile\Http\Controllers', 'middleware' => ['web','auth']], function() {
+    Route::get('service-profile-main', 'ModulesServiceProfileController@index')->name('service-profile-main');
 });
 
 

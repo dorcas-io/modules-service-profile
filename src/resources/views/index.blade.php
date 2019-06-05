@@ -42,7 +42,7 @@
 	                    @endslot
 	                    Add details about your certifications in your field.
 	                    @slot('buttons')
-	                        <a href="#credential-modal" class="btn btn-primary btn-sm">Add Credential</a>
+	                        <a href="#" data-toggle="modal" data-target="#credential-modal" class="btn btn-primary btn-sm">Add Credential</a>
 	                    @endslot
 	                @endcomponent
                 </div>
@@ -64,7 +64,7 @@
 	                    @endslot
 	                    Talk about place you have worked
 	                    @slot('buttons')
-	                        <a href="#experience-modal" class="btn btn-primary btn-sm">Add Experience</a>
+	                        <a href="#" data-toggle="modal" data-target="#experience-modal" class="btn btn-primary btn-sm">Add Experience</a>
 	                    @endslot
 	                @endcomponent
                 </div>
@@ -87,7 +87,7 @@
 	                    @endslot
 	                    Add Social Connections for people to learn about you and connect
 	                    @slot('buttons')
-	                        <a href="#social-connection-modal" class="btn btn-primary btn-sm">Add Social Connection</a>
+	                        <a href="#" data-toggle="modal" data-target="#social-connection-modal" class="btn btn-primary btn-sm">Add Social Connection</a>
 	                    @endslot
 	                @endcomponent
                 </div>
@@ -97,23 +97,12 @@
             </div>
             <div class="tab-pane container" id="profile_services">
                 <br/>
-
                 <div class="row" v-if="typeof profile.professional_services.data !== 'undefined' && profile.professional_services.data.length > 0 && viewMode === 'professional'">
-                    <professional-service v-for="(service, index) in profile.professional_services.data"
-                                             :key="service.id" :service="service" class="m6"
-                                             :index="index"
-                                          v-on:delete-service="removeService"
-                                          v-on:edit-service="editService">
-
+                    <professional-service v-for="(service, index) in profile.professional_services.data" :key="service.id" :service="service" class="m6"  :index="index" v-on:delete-service="removeService" v-on:edit-service="editService">
                     </professional-service>
                 </div>
                 <div class="row" v-if="typeof profile.vendor_services.data !== 'undefined' && profile.vendor_services.data.length > 0 && viewMode === 'vendor'">
-                    <professional-service v-for="(service, index) in profile.vendor_services.data"
-                                          :key="service.id" :service="service" class="m6"
-                                          :index="index"
-                                          v-on:delete-service="removeService"
-                                          v-on:edit-service="editService">
-
+                    <professional-service v-for="(service, index) in profile.vendor_services.data" :key="service.id" :service="service" class="m6" :index="index" v-on:delete-service="removeService" v-on:edit-service="editService">
                     </professional-service>
                 </div>
                 <div class="col s12" v-if="(viewMode === 'professional' && profile.professional_services.data.length === 0) || (viewMode === 'vendor' && profile.vendor_services.data.length === 0)">
@@ -123,7 +112,7 @@
 	                    @endslot
 	                    Enter the Services you offer
 	                    @slot('buttons')
-	                        <a href="#service-modal" class="btn btn-primary btn-sm">Add Service</a>
+	                        <a href="#" data-toggle="modal" data-target="#service-modal" class="btn btn-primary btn-sm">Add Service</a>
 	                    @endslot
 	                @endcomponent
                 </div>
@@ -157,26 +146,32 @@
                     service: {is_processing: false, title: '', type: '', frequency: 'standard', currency: 'NGN', amount: 0.00, categories: [], extra_category: '', id: ''},
                 }
             },
+            mounted: function () {
+            	//console.log(this.profile.professional_services.data.length);
+            },
             methods: {
                 addSocialConnection: function () {
                     this.modals.social.is_processing = true;
                     var context = this;
-                    axios.post("/xhr/directory/social-connections", {
+                    axios.post("/mpp/social-connections", {
                         channel: context.modals.social.channel,
                         id: context.modals.social.id,
                         url: context.modals.social.url
                     }).then(function (response) {
-                        console.log(response);
+                        //console.log(response);
                         context.modals.social = {is_processing: false, channel: '', id: '', url: ''};
                         context.profile.extra_configurations = response.data.extra_configurations;
+                        $('#social-connection-modal').modal('hide');
                         return swal("Success", "The social connection was successfully created.", "success");
                     }).catch(function (error) {
                             var message = '';
                             if (error.response) {
                                 // The request was made and the server responded with a status code
                                 // that falls out of the range of 2xx
-                                var e = error.response.data.errors[0];
-                                message = e.title;
+	                            //var e = error.response.data.errors[0];
+	                            //message = e.title;
+	                            var e = error.response;
+	                            message = e.data.message;
                             } else if (error.request) {
                                 // The request was made but no response was received
                                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -196,19 +191,22 @@
                 addCredential: function () {
                     this.modals.credential.is_processing = true;
                     var context = this;
-                    axios.post("/xhr/directory/credentials", context.modals.credential)
+                    axios.post("/mpp/credentials", context.modals.credential)
                         .then(function (response) {
-                            console.log(response);
+                            //console.log(response);
                             context.modals.credential = {is_processing: false, title: '', type: '', year: '', description: '', certification: ''};
                             context.profile.professional_credentials.data.push(response.data);
+                            $('#credential-modal').modal('hide');
                             return swal("Success", "The credential was successfully created.", "success");
                         }).catch(function (error) {
                             var message = '';
                             if (error.response) {
                                 // The request was made and the server responded with a status code
                                 // that falls out of the range of 2xx
-                                var e = error.response.data.errors[0];
-                                message = e.title;
+	                            //var e = error.response.data.errors[0];
+	                            //message = e.title;
+	                            var e = error.response;
+	                            message = e.data.message;
                             } else if (error.request) {
                                 // The request was made but no response was received
                                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -228,19 +226,22 @@
                 addExperience: function () {
                     this.modals.experience.is_processing = true;
                     var context = this;
-                    axios.post("/xhr/directory/experiences", context.modals.experience)
+                    axios.post("/mpp/experiences", context.modals.experience)
                         .then(function (response) {
-                            console.log(response);
+                            //console.log(response);
                             context.modals.experience = {is_processing: false, company: '', designation: '', from_year: '', to_year: ''};
                             context.profile.professional_experiences.data.push(response.data);
+                            $('#experience-modal').modal('hide');
                             return swal("Success", "The experience was successfully created.", "success");
                         }).catch(function (error) {
                         var message = '';
                         if (error.response) {
                             // The request was made and the server responded with a status code
                             // that falls out of the range of 2xx
-                            var e = error.response.data.errors[0];
-                            message = e.title;
+	                            //var e = error.response.data.errors[0];
+	                            //message = e.title;
+	                            var e = error.response;
+	                            message = e.data.message;
                         } else if (error.request) {
                             // The request was made but no response was received
                             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -273,16 +274,16 @@
                     for (var i = 0; i < service.categories.data.length; i++) {
                         this.modals.service.categories.push(service.categories.data[i].id);
                     }
-                    $('#new-service').modal('open');
+                    $('#service-modal').modal('show');
                 },
                 addService: function () {
                     this.modals.service.is_processing = true;
                     var context = this;
                     context.modals.service.service_type = this.viewMode === 'vendor' ? 'vendor' : 'professional';
                     // set the service type
-                    axios.post("/xhr/directory/services", context.modals.service)
+                    axios.post("/mpp/services", context.modals.service)
                         .then(function (response) {
-                            console.log(response);
+                            //console.log(response);
                             var index = -1;
                             var reference = response.data.type === 'vendor' ? context.profile.vendor_services : context.profile.professional_services;
                             if (typeof response.data.id !== 'undefined') {
@@ -308,14 +309,17 @@
                                 }
                             }
                             context.modals.service = {is_processing: false, title: '', type: '', frequency: 'standard', currency: 'NGN', amount: 0.00, categories: [], extra_category: '', id: ''};
+                            $('#service-modal').modal('hide');
                             return swal("Success", "The service was successfully created.", "success");
                         }).catch(function (error) {
                             var message = '';
                             if (error.response) {
                                 // The request was made and the server responded with a status code
                                 // that falls out of the range of 2xx
-                                var e = error.response.data.errors[0];
-                                message = e.title;
+	                            //var e = error.response.data.errors[0];
+	                            //message = e.title;
+	                            var e = error.response;
+	                            message = e.data.message;
                             } else if (error.request) {
                                 // The request was made but no response was received
                                 // `error.request` is an instance of XMLHttpRequest in the browser and an instance of

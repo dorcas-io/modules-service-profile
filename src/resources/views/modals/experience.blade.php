@@ -1,14 +1,14 @@
 <div class="modal fade" id="experience-modal" tabindex="-1" role="dialog" aria-labelledby="experience-modalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="experience-modalLabel">Experience</h5>
+        <h4 class="modal-title" id="experience-modalLabel">New Experience</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="" id="form-new-experience" method="post" v-on:submit.prevent="addExperience">
             {{ csrf_field() }}
-            <h4>Add a new <strong>Credential</strong> such as certifications, etc...</h4>
+            <h5>Add a new <strong>Experience</strong> such as current/previous employment</h5>
             <fieldset class="form-fieldset">
                 <div class="row">
                     <div class="col-md-6 form-group">
@@ -45,7 +45,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" v-if="!modals.experience.is_processing">Close</button>
-        <button type="submit" form="form-new-experience" class="btn btn-primary" name="save_experience" value="1" v-if="!modals.experience.is_processing">Save Experience</button>
+        <button type="submit" form="form-new-experience" class="btn btn-primary" name="save_experience" value="1" :class="{'btn-loading': modals.experience.is_processing}">Save Experience</button>
       </div>
     </div>
   </div>

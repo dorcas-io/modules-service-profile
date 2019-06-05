@@ -25,12 +25,22 @@ class ModulesServiceProfileController extends Controller {
         ];
     }
 
-    public function index()
+    public function index(Request $request, Sdk $sdk)
     {
     	//$this->data['availableModules'] = HomeController::SETUP_UI_COMPONENTS;
         $this->setViewUiResponse($request);
         $this->data['categories'] = $this->getProfessionalServiceCategories($sdk);
         $this->data['profile'] = $profile = $this->getProfessionalProfile($sdk);
+        $this->data['submenuAction'] = '
+            <div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Add Profile Item(s)</button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#credential-modal">New Credential</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#experience-modal">New Experience</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#social-connection-modal">New Social Connection</a>
+                    <a href="#" class="dropdown-item" data-toggle="modal" data-target="#service-modal">New Service</a>
+                </div>
+            </div>
+        ';
     	return view('modules-service-profile::index', $this->data);
     }
 

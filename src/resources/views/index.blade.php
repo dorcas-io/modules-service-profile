@@ -148,6 +148,7 @@
             },
             mounted: function () {
             	//console.log(this.profile.professional_services.data.length);
+                console.log(this.profile);
             },
             methods: {
                 addSocialConnection: function () {
@@ -312,6 +313,7 @@
                             $('#service-modal').modal('hide');
                             return swal("Success", "The service was successfully created.", "success");
                         }).catch(function (error) {
+                            console.log(error);
                             var message = '';
                             if (error.response) {
                                 // The request was made and the server responded with a status code

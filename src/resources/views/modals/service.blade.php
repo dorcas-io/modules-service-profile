@@ -30,7 +30,7 @@
                         <label class="form-label" for="service_type">Service Type</label>
                     </div>
                     <div class="col-xl-3 col-md-6 form-group">
-                        <select class="form-control" name="service_type" id="service_type" v-model="modals.service.frequency" required>
+                        <select class="form-control" name="service_frequency" id="service_frequency" v-model="modals.service.frequency" required>
                             <option disabled="disabled" value="">Payment Frequency</option>
                             <option value="hour">per Hour</option>
                             <option value="day">per Day</option>
@@ -38,7 +38,7 @@
                             <option value="month">per Month</option>
                             <option value="standard">Standard (per Job)</option>
                         </select>
-                        <label class="form-label" for="service_type">Payment Frequency</label>
+                        <label class="form-label" for="service_frequency">Payment Frequency</label>
                     </div>
                     <div class="col-xl-3 col-md-6 form-group">
                         <select class="form-control" name="service_currency" id="service_currency" v-model="modals.service.currency" required>
@@ -51,7 +51,7 @@
                         <label class="form-label" for="service_currency">Currency</label>
                     </div>
                     <div class="col-xl-3 col-md-6 form-group">
-                        <input class="form-control" id="service_cost" type="number" step="1" min="0" name="service_cost" v-model="modals.service.amount" required>
+                        <input class="form-control" id="service_cost" type="number" step="1" min="1" name="service_cost" v-model="modals.service.amount" required>
                         <label class="form-label" for="service_cost">Service Cost</label>
                     </div>
                 </div>

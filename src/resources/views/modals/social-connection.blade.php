@@ -12,7 +12,7 @@
             <fieldset class="form-fieldset">
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <select name="channel" id="channel" class="form-control" v-model="modals.social.channel">
+                        <select name="channel_social" id="channel_social" class="form-control" v-model="modals.social.channel">
                             <option value="" disabled="disabled">Social Network</option>
                             <option value="facebook">Facebook</option>
                             <option value="instagram">Instagram</option>
@@ -20,7 +20,7 @@
                             <option value="twitter">Twitter</option>
                             <option value="youtube">Youtube</option>
                         </select>
-                        <label class="form-label" for="title">Social Network</label>
+                        <label class="form-label" for="channel_social">Social Network</label>
                     </div>
                     <div class="col-md-6 form-group">
                         <input class="form-control" id="id" type="text" name="id" v-model="modals.social.id">

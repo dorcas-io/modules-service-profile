@@ -16,13 +16,13 @@
                         <label class="form-label" for="title">Institution</label>
                     </div>
                     <div class="col-md-4 form-group">
-                        <select class="form-control" name="channel" id="channel" v-model="modals.credential.type" required>
+                        <select class="form-control" name="channel_credential" id="channel_credential" v-model="modals.credential.type" required>
                             <option value="" disabled="disabled">Certification Type</option>
                             <option value="degree">Degree</option>
                             <option value="course">Personal Coursework</option>
                             <option value="professional">Professional</option>
                         </select>
-                        <label class="form-label" for="channel">Certification Type</label>
+                        <label class="form-label" for="channel_credential">Certification Type</label>
                     </div>
                 </div>
                 <div class="row">
@@ -31,13 +31,13 @@
                         <label class="form-label" for="certification">Certification e.g. Ph.D</label>
                     </div>
                     <div class="col-md-4 form-group">
-                        <select class="form-control" name="year" id="year" v-model="modals.credential.year" required>
+                        <select class="form-control" name="year_credential" id="year_credential" v-model="modals.credential.year" required>
                             <option disabled="disabled" value="">Certification Year</option>
                             @for ($i = date('Y'); $i >= 1980; $i--))
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
-                        <label class="form-label" for="year">Certification Year</label>
+                        <label class="form-label" for="year_credential">Certification Year</label>
                     </div>
                 </div>
                 <div class="row">

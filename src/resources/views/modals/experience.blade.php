@@ -22,22 +22,22 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 form-group">
-                        <select class="form-control" name="year" id="year" v-model="modals.experience.from_year" required>
+                        <select class="form-control" name="year_experience_from" id="year_experience_from" v-model="modals.experience.from_year" required>
                             <option disabled="disabled" value="">From Year</option>
                             @for ($i = 1980; $i <= date('Y'); $i++))
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
-                        <label class="form-label" for="year">From Year</label>
+                        <label class="form-label" for="year_experience_from">From Year</label>
                     </div>
                     <div class="col-md-6 form-group">
-                        <select class="form-control" name="year" id="year" v-model="modals.experience.to_year">
+                        <select class="form-control" name="year_experience_to" id="year_experience_to" v-model="modals.experience.to_year">
                             <option disabled="disabled" value="">To Year</option>
                             @for ($i = date('Y'); $i >= 1980; $i--))
                                 <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
-                        <label class="form-label" for="year">To Year</label>
+                        <label class="form-label" for="year_experience_to">To Year</label>
                     </div>
                 </div>
             </fieldset>

@@ -29,7 +29,10 @@ class ModulesServiceProfileController extends Controller {
     {
     	//$this->data['availableModules'] = HomeController::SETUP_UI_COMPONENTS;
         $this->setViewUiResponse($request);
+        //$this->data['categories'] = $this->getProfessionalServiceCategories($sdk);
         $this->data['categories'] = $this->getProfessionalServiceCategories($sdk);
+        // Determine edition and source of service categories
+        # pull from Global Service Categories (if community) or Dorcas (if Business)
         $this->data['profile'] = $profile = $this->getProfessionalProfile($sdk);
         $this->data['submenuAction'] = '
             <div class="dropdown"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Add Profile Item(s)</button>

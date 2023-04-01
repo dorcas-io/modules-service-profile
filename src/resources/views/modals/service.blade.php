@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-6 form-group">
                         <input class="form-control" id="service_categories" type="text" name="service_categories" v-model="modals.service.extra_category">
-                        <label class="form-label" for="service_title">Additional Categories (separate by comma)</label>
+                        <label class="form-label" for="service_categories">Additional Categories (separate by comma)</label>
                     </div>
                 </div>
                 <div class="row">
